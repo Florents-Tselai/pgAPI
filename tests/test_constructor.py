@@ -7,8 +7,10 @@ def test_db_constructor(fresh_db):
     version = fresh_db.postgres_version
     assert isinstance(version, tuple)
     assert len(version) == 3
-#     assert db.name == "testpgapi"
+    #     assert db.name == "testpgapi"
     assert fresh_db.current_schema == "public"
+
+
 #     assert db.table_names() == ["data"]
 #     assert db.view_names() == ["dummy"]
 
