@@ -1,4 +1,4 @@
-from sqlite_utils.db import Index, View, Database, XIndex, XIndexColumn
+from pgapi.db import Index, View, Database, XIndex, XIndexColumn
 import pytest
 
 

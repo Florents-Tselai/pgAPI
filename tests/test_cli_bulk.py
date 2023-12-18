@@ -1,5 +1,5 @@
 from click.testing import CliRunner
-from sqlite_utils import cli, Database
+from pgapi import cli, Database
 import pathlib
 import pytest
 import subprocess

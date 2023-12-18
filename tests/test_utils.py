@@ -1,4 +1,4 @@
-from sqlite_utils import utils
+from pgapi import utils
 import csv
 import io
 import pytest

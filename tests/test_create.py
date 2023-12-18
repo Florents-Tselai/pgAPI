@@ -1,4 +1,4 @@
-from sqlite_utils.db import (
+from pgapi.db import (
     Index,
     Database,
     DescIndex,
@@ -9,7 +9,7 @@ from sqlite_utils.db import (
     Table,
     View,
 )
-from sqlite_utils.utils import hash_record, sqlite3
+from pgapi.utils import hash_record, sqlite3
 import collections
 import datetime
 import decimal

@@ -1,4 +1,4 @@
-from sqlite_utils.db import InvalidColumns
+from pgapi.db import InvalidColumns
 import itertools
 import pytest
 

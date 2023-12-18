@@ -1,4 +1,4 @@
-from sqlite_utils.utils import rows_from_file, Format, RowError
+from pgapi.utils import rows_from_file, Format, RowError
 from io import BytesIO, StringIO
 import pytest
 

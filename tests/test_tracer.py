@@ -1,4 +1,4 @@
-from sqlite_utils import Database
+from pgapi import Database
 
 
 def test_tracer():

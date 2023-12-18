@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import io
 import os
 
-VERSION = "3.36"
+VERSION = "0.1"
 
 
 def get_long_description():
@@ -14,16 +14,18 @@ def get_long_description():
 
 
 setup(
-    name="sqlite-utils",
-    description="CLI tool and Python library for manipulating SQLite databases",
+    name="pgapi",
+    description="CLI tool and Python library for manipulating Postgres databases",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
-    author="Simon Willison",
+    author="Florents Tselai",
+    author_email="florents@tselai.com",
     version=VERSION,
     license="Apache License, Version 2.0",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    package_data={"sqlite_utils": ["py.typed"]},
+    package_data={"pgapi": ["py.typed"]},
     install_requires=[
+        "psycopg[binary,pool]",
         "sqlite-fts4",
         "click",
         "click-default-group>=1.2.3",
@@ -54,15 +56,15 @@ setup(
     },
     entry_points="""
         [console_scripts]
-        sqlite-utils=sqlite_utils.cli:cli
+        pgapi=pgapi.cli:cli
     """,
-    url="https://github.com/simonw/sqlite-utils",
+    url="https://github.com/Florents-Tselai/pgAPI",
     project_urls={
-        "Documentation": "https://sqlite-utils.datasette.io/en/stable/",
-        "Changelog": "https://sqlite-utils.datasette.io/en/stable/changelog.html",
-        "Source code": "https://github.com/simonw/sqlite-utils",
-        "Issues": "https://github.com/simonw/sqlite-utils/issues",
-        "CI": "https://github.com/simonw/sqlite-utils/actions",
+        "Documentation": "https://pgAPI.tselai.com/en/stable/",
+        "Changelog": "https://pgAPI.tselai.com/en/stable/changelog.html",
+        "Source code": "https://github.com/Florents-Tselai/pgAPI",
+        "Issues": "https://github.com/Florents-Tselai/pgAPI/issues",
+        "CI": "https://github.com/Florents-Tselai/pgAPI/actions",
     },
     python_requires=">=3.7",
     classifiers=[

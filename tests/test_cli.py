@@ -1,5 +1,5 @@
-from sqlite_utils import cli, Database
-from sqlite_utils.db import Index, ForeignKey
+from pgapi import cli, Database
+from pgapi.db import Index, ForeignKey
 from click.testing import CliRunner
 from pathlib import Path
 import subprocess

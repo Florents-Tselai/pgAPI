@@ -1,4 +1,4 @@
-from sqlite_utils.db import NoTable
+from pgapi.db import NoTable
 import datetime
 import pytest
 

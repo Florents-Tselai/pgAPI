@@ -2,7 +2,7 @@
 import pytest
 import sys
 from unittest.mock import MagicMock, call
-from sqlite_utils.utils import sqlite3
+from pgapi.utils import sqlite3
 
 
 def test_register_function(fresh_db):

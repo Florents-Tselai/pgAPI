@@ -1,7 +1,16 @@
-from sqlite_utils import Database
-from sqlite_utils.utils import sqlite3
+from pgapi import Database
+from pgapi.utils import sqlite3
 import pytest
 
+
+# def test_db_constructor(db):
+#     version = db.postgres_version
+#     assert isinstance(version, tuple)
+#     assert len(version) == 3
+#     assert db.name == "testpgapi"
+#     assert db.current_schema == "public"
+#     assert db.table_names() == ["data"]
+#     assert db.view_names() == ["dummy"]
 
 def test_recursive_triggers():
     db = Database(memory=True)

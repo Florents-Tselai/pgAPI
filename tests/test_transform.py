@@ -1,5 +1,5 @@
-from sqlite_utils.db import ForeignKey
-from sqlite_utils.utils import OperationalError
+from pgapi.db import ForeignKey
+from pgapi.utils import OperationalError
 import pytest
 
 

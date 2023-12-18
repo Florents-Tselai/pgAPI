@@ -5,11 +5,11 @@ from datetime import datetime
 import hashlib
 import pathlib
 from runpy import run_module
-import sqlite_utils
-from sqlite_utils.db import AlterError, BadMultiValues, DescIndex, NoTable
-from sqlite_utils.plugins import pm, get_plugins
-from sqlite_utils.utils import maximize_csv_field_size_limit
-from sqlite_utils import recipes
+import pgapi
+from pgapi.db import AlterError, BadMultiValues, DescIndex, NoTable
+from pgapi.plugins import pm, get_plugins
+from pgapi.utils import maximize_csv_field_size_limit
+from pgapi import recipes
 import textwrap
 import inspect
 import io
@@ -185,7 +185,7 @@ def tables(
     \b
         sqlite-utils tables trees.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     headers = ["view" if views else "table"]
     if counts:
@@ -309,7 +309,7 @@ def optimize(path, tables, no_vacuum, load_extension):
     \b
         sqlite-utils optimize chickens.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if not tables:
         tables = db.table_names(fts4=True) + db.table_names(fts5=True)
@@ -336,7 +336,7 @@ def rebuild_fts(path, tables, load_extension):
     \b
         sqlite-utils rebuild-fts chickens.db chickens
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if not tables:
         tables = db.table_names(fts4=True) + db.table_names(fts5=True)
@@ -360,7 +360,7 @@ def analyze(path, names):
     \b
         sqlite-utils analyze chickens.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     try:
         if names:
             for name in names:
@@ -385,7 +385,7 @@ def vacuum(path):
     \b
         sqlite-utils vacuum chickens.db
     """
-    sqlite_utils.Database(path).vacuum()
+    pgapi.Database(path).vacuum()
 
 
 @cli.command()
@@ -403,7 +403,7 @@ def dump(path, load_extension):
     \b
         sqlite-utils dump chickens.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     for line in db.iterdump():
         click.echo(line)
@@ -464,7 +464,7 @@ def add_column(
     \b
         sqlite-utils add-column chickens.db chickens weight float
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db[table].add_column(
@@ -501,7 +501,7 @@ def add_foreign_key(
 
         sqlite-utils add-foreign-key my.db books author_id authors id
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db[table].add_foreign_key(column, other_table, other_column, ignore=ignore)
@@ -528,7 +528,7 @@ def add_foreign_keys(path, foreign_key, load_extension):
             books author_id authors id \\
             authors country_id countries id
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if len(foreign_key) % 4 != 0:
         raise click.ClickException(
@@ -559,7 +559,7 @@ def index_foreign_keys(path, load_extension):
     \b
         sqlite-utils index-foreign-keys chickens.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     db.index_foreign_keys()
 
@@ -603,7 +603,7 @@ def create_index(
     \b
         sqlite-utils create-index chickens.db chickens -- -name
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     # Treat -prefix as descending for columns
     columns = []
@@ -660,7 +660,7 @@ def enable_fts(
     elif fts4:
         fts_version = "FTS4"
 
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db[table].enable_fts(
@@ -691,7 +691,7 @@ def populate_fts(path, table, column, load_extension):
     \b
         sqlite-utils populate-fts chickens.db chickens name
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     db[table].populate_fts(column)
 
@@ -712,7 +712,7 @@ def disable_fts(path, table, load_extension):
     \b
         sqlite-utils disable-fts chickens.db chickens
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     db[table].disable_fts()
 
@@ -734,7 +734,7 @@ def enable_wal(path, load_extension):
         sqlite-utils enable-wal chickens.db
     """
     for path_ in path:
-        db = sqlite_utils.Database(path_)
+        db = pgapi.Database(path_)
         _load_extensions(db, load_extension)
         db.enable_wal()
 
@@ -756,7 +756,7 @@ def disable_wal(path, load_extension):
         sqlite-utils disable-wal chickens.db
     """
     for path_ in path:
-        db = sqlite_utils.Database(path_)
+        db = pgapi.Database(path_)
         _load_extensions(db, load_extension)
         db.disable_wal()
 
@@ -777,7 +777,7 @@ def enable_counts(path, tables, load_extension):
     \b
         sqlite-utils enable-counts chickens.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if not tables:
         db.enable_counts()
@@ -805,7 +805,7 @@ def reset_counts(path, load_extension):
     \b
         sqlite-utils reset-counts chickens.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     db.reset_counts()
 
@@ -959,7 +959,7 @@ def insert_upsert_implementation(
     functions=None,
     strict=False,
 ):
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if functions:
         _register_functions(db, functions)
@@ -1466,7 +1466,7 @@ def create_database(path, enable_wal, init_spatialite, load_extension):
     \b
         sqlite-utils create-database trees.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     if enable_wal:
         db.enable_wal()
 
@@ -1555,7 +1555,7 @@ def create_table(
 
     Valid column types are text, integer, float and blob.
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if len(columns) % 2 == 1:
         raise click.ClickException(
@@ -1606,7 +1606,7 @@ def duplicate(path, table, new_table, ignore, load_extension):
     """
     Create a duplicate of this table, copying across the schema and all row data.
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db[table].duplicate(new_table)
@@ -1629,7 +1629,7 @@ def rename_table(path, table, new_name, ignore, load_extension):
     """
     Rename this table.
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db.rename_table(table, new_name)
@@ -1657,7 +1657,7 @@ def drop_table(path, table, ignore, load_extension):
     \b
         sqlite-utils drop-table chickens.db chickens
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db[table].drop(ignore=ignore)
@@ -1693,7 +1693,7 @@ def create_view(path, view, select, ignore, replace, load_extension):
         sqlite-utils create-view chickens.db heavy_chickens \\
           'select * from chickens where weight > 3'
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     # Does view already exist?
     if view in db.view_names():
@@ -1727,7 +1727,7 @@ def drop_view(path, view, ignore, load_extension):
     \b
         sqlite-utils drop-view chickens.db heavy_chickens
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     try:
         db[view].drop(ignore=ignore)
@@ -1789,7 +1789,7 @@ def query(
             "select * from chickens where age > :age" \\
             -p age 1
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     for alias, attach_path in attach:
         db.attach(alias, attach_path)
     _load_extensions(db, load_extension)
@@ -1921,7 +1921,7 @@ def memory(
     \b
         sqlite-utils memory animals.csv --schema
     """
-    db = sqlite_utils.Database(memory=True)
+    db = pgapi.Database(memory=True)
     # If --dump or --save or --analyze used but no paths detected, assume SQL query is a path:
     if (dump or save or schema or analyze) and not paths:
         paths = [sql]
@@ -1981,7 +1981,7 @@ def memory(
         return
 
     if save:
-        db2 = sqlite_utils.Database(save)
+        db2 = pgapi.Database(save)
         for line in db.iterdump():
             db2.execute(line)
         return
@@ -2115,7 +2115,7 @@ def search(
 
         sqlite-utils search data.db chickens lila
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     # Check table exists
     table_obj = db[dbtable]
@@ -2283,7 +2283,7 @@ def triggers(
     """
     sql = "select name, tbl_name as [table], sql from sqlite_master where type = 'trigger'"
     if tables:
-        quote = sqlite_utils.Database(memory=True).quote
+        quote = pgapi.Database(memory=True).quote
         sql += " and [table] in ({})".format(
             ", ".join(quote(table) for table in tables)
         )
@@ -2348,7 +2348,7 @@ def indexes(
       sqlite_master.type = 'table'
     """
     if tables:
-        quote = sqlite_utils.Database(memory=True).quote
+        quote = pgapi.Database(memory=True).quote
         sql += " and sqlite_master.name in ({})".format(
             ", ".join(quote(table) for table in tables)
         )
@@ -2390,7 +2390,7 @@ def schema(
     \b
         sqlite-utils schema trees.db
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     if tables:
         for table in tables:
@@ -2480,7 +2480,7 @@ def transform(
             --drop column1 \\
             --rename column2 column_renamed
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     types = {}
     kwargs = {}
@@ -2563,7 +2563,7 @@ def extract(
     \b
         sqlite-utils extract trees.db Street_Trees species
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     kwargs = dict(
         columns=columns,
@@ -2707,7 +2707,7 @@ def insert_files(
                         row[colname] = name
                 yield row
 
-        db = sqlite_utils.Database(path)
+        db = pgapi.Database(path)
         _load_extensions(db, load_extension)
         try:
             with db.conn:
@@ -2761,7 +2761,7 @@ def analyze_tables(
     \b
         sqlite-utils analyze-tables data.db trees
     """
-    db = sqlite_utils.Database(path)
+    db = pgapi.Database(path)
     _load_extensions(db, load_extension)
     _analyze(db, tables, columns, save, common_limit, no_most, no_least)
 
@@ -2962,7 +2962,7 @@ def convert(
     pdb_,
 ):
     sqlite3.enable_callback_tracebacks(True)
-    db = sqlite_utils.Database(db_path)
+    db = pgapi.Database(db_path)
     if output is not None and len(columns) > 1:
         raise click.ClickException("Cannot use --output with more than one column")
     if multi and len(columns) > 1:
@@ -3105,7 +3105,7 @@ def add_geometry_column(
     \n\n
     By default, this command will try to load the SpatiaLite extension from usual paths.
     To load it from a specific path, use --load-extension."""
-    db = sqlite_utils.Database(db_path)
+    db = pgapi.Database(db_path)
     if not db[table].exists():
         raise click.ClickException(
             "You must create a table before adding a geometry column"
@@ -3137,7 +3137,7 @@ def create_spatial_index(db_path, table, column_name, load_extension):
     \n\n
     By default, this command will try to load the SpatiaLite extension from usual paths.
     To load it from a specific path, use --load-extension."""
-    db = sqlite_utils.Database(db_path)
+    db = pgapi.Database(db_path)
     if not db[table].exists():
         raise click.ClickException(
             "You must create a table and add a geometry column before creating a spatial index"

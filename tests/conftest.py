@@ -1,5 +1,5 @@
-from sqlite_utils import Database
-from sqlite_utils.utils import sqlite3
+from pgapi import Database
+from pgapi.utils import sqlite3
 import pytest
 
 CREATE_TABLES = """

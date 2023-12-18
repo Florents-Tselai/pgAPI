@@ -1,4 +1,4 @@
-from sqlite_utils import Database
+from pgapi import Database
 import sqlite3
 import pathlib
 import pytest

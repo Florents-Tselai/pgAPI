@@ -79,8 +79,9 @@ See the [full CLI documentation](https://sqlite-utils.datasette.io/en/stable/cli
 You can also `import sqlite_utils` and use it as a Python library like this:
 
 ```python
-import sqlite_utils
-db = sqlite_utils.Database("demo_database.db")
+import pgapi
+
+db = pgapi.Database("demo_database.db")
 # This line creates a "dogs" table if one does not already exist:
 db["dogs"].insert_all([
     {"id": 1, "age": 4, "name": "Cleo"},

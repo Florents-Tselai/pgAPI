@@ -1,5 +1,5 @@
-from sqlite_utils import recipes
-from sqlite_utils.utils import sqlite3
+from pgapi import recipes
+from pgapi.utils import sqlite3
 import json
 import pytest
 

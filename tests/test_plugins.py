@@ -1,7 +1,7 @@
 from click.testing import CliRunner
 import click
 import importlib
-from sqlite_utils import cli, Database, hookimpl, plugins
+from pgapi import cli, Database, hookimpl, plugins
 
 
 def test_register_commands():

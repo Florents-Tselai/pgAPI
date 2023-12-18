@@ -1,4 +1,4 @@
-from sqlite_utils.db import BadMultiValues
+from pgapi.db import BadMultiValues
 import pytest
 
 

@@ -1,6 +1,6 @@
 from click.testing import CliRunner
-from sqlite_utils import cli
-import sqlite_utils
+from pgapi import cli
+import pgapi
 import json
 import textwrap
 import pathlib
@@ -25,7 +25,7 @@ def test_db_and_path(fresh_db_and_path):
 @pytest.fixture
 def fresh_db_and_path(tmpdir):
     db_path = str(pathlib.Path(tmpdir) / "data.db")
-    db = sqlite_utils.Database(db_path)
+    db = pgapi.Database(db_path)
     return db, db_path
 
 
@@ -415,7 +415,7 @@ def test_convert_multi_complex_column_types(fresh_db_and_path):
 @pytest.mark.parametrize("delimiter", [None, ";", "-"])
 def test_recipe_jsonsplit(tmpdir, delimiter):
     db_path = str(pathlib.Path(tmpdir) / "data.db")
-    db = sqlite_utils.Database(db_path)
+    db = pgapi.Database(db_path)
     db["example"].insert_all(
         [
             {"id": 1, "tags": (delimiter or ",").join(["foo", "bar"])},

@@ -1,5 +1,5 @@
 import pytest
-from sqlite_utils import Database
+from pgapi import Database
 
 
 @pytest.fixture

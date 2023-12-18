@@ -2,9 +2,9 @@ import json
 import pytest
 
 from click.testing import CliRunner
-from sqlite_utils.cli import cli
-from sqlite_utils.db import Database
-from sqlite_utils.utils import find_spatialite, sqlite3
+from pgapi.cli import cli
+from pgapi.db import Database
+from pgapi.utils import find_spatialite, sqlite3
 
 try:
     import sqlean

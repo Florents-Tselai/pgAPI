@@ -1,5 +1,5 @@
 import pytest
-from sqlite_utils.db import NotFoundError
+from pgapi.db import NotFoundError
 
 
 def test_get_rowid(fresh_db):

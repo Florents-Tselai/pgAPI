@@ -1,4 +1,4 @@
-from sqlite_utils.db import PrimaryKeyRequired
+from pgapi.db import PrimaryKeyRequired
 import pytest
 
 

@@ -1,4 +1,4 @@
-from sqlite_utils.db import ForeignKey, NoObviousTable
+from pgapi.db import ForeignKey, NoObviousTable
 import pytest
 
 

@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from sqlite_utils.db import NotFoundError
+from pgapi.db import NotFoundError
 
 
 def test_update_rowid_table(fresh_db):

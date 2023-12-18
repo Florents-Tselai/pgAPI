@@ -1,5 +1,5 @@
-from sqlite_utils import Database
-from sqlite_utils import cli
+from pgapi import Database
+from pgapi import cli
 from click.testing import CliRunner
 import pytest
 

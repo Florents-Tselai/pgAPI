@@ -36,8 +36,9 @@ from typing import (
     List,
     Tuple,
 )
+import psycopg
 import uuid
-from sqlite_utils.plugins import pm
+from pgapi.plugins import pm
 
 try:
     from sqlite_dump import iterdump
@@ -283,17 +284,14 @@ CREATE TABLE IF NOT EXISTS [{}](
 
 class Database:
     """
-    Wrapper for a SQLite database connection that adds a variety of useful utility methods.
+    Wrapper for a Postgres database connection that adds a variety of useful utility methods.
 
     To create an instance::
 
         # create data.db file, or open existing:
         db = Database("data.db")
-        # Create an in-memory database:
-        dB = Database(memory=True)
 
-    :param filename_or_conn: String path to a file, or a ``pathlib.Path`` object, or a
-      ``sqlite3`` connection
+    :param conninfo: String path to a file, or a ``psycopg`` connection
     :param memory: set to ``True`` to create an in-memory database
     :param memory_name: creates a named in-memory database that can be shared across multiple connections
     :param recreate: set to ``True`` to delete and recreate a file database (**dangerous**)
@@ -311,7 +309,7 @@ class Database:
 
     def __init__(
         self,
-        filename_or_conn: Optional[Union[str, pathlib.Path, sqlite3.Connection]] = None,
+        conninfo: Optional[Union[str, psycopg.Connection]] = None,
         memory: bool = False,
         memory_name: Optional[str] = None,
         recreate: bool = False,
@@ -321,8 +319,8 @@ class Database:
         execute_plugins: bool = True,
         strict: bool = False,
     ):
-        assert (filename_or_conn is not None and (not memory and not memory_name)) or (
-            filename_or_conn is None and (memory or memory_name)
+        assert (conninfo is not None and (not memory and not memory_name)) or (
+                conninfo is None and (memory or memory_name)
         ), "Either specify a filename_or_conn or pass memory=True"
         if memory_name:
             uri = "file:{}?mode=memory&cache=shared".format(memory_name)
@@ -331,21 +329,21 @@ class Database:
                 uri=True,
                 check_same_thread=False,
             )
-        elif memory or filename_or_conn == ":memory:":
+        elif memory or conninfo == ":memory:":
             self.conn = sqlite3.connect(":memory:")
-        elif isinstance(filename_or_conn, (str, pathlib.Path)):
-            if recreate and os.path.exists(filename_or_conn):
+        elif isinstance(conninfo, (str, pathlib.Path)):
+            if recreate and os.path.exists(conninfo):
                 try:
-                    os.remove(filename_or_conn)
+                    os.remove(conninfo)
                 except OSError:
                     # Avoid mypy and __repr__ errors, see:
                     # https://github.com/simonw/sqlite-utils/issues/503
                     self.conn = sqlite3.connect(":memory:")
                     raise
-            self.conn = sqlite3.connect(str(filename_or_conn))
+            self.conn = sqlite3.connect(str(conninfo))
         else:
             assert not recreate, "recreate cannot be used with connections, only paths"
-            self.conn = filename_or_conn
+            self.conn = conninfo
         self._tracer = tracer
         if recursive_triggers:
             self.execute("PRAGMA recursive_triggers=on;")

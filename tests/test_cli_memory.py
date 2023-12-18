@@ -3,7 +3,7 @@ import json
 import pytest
 from click.testing import CliRunner
 
-from sqlite_utils import Database, cli
+from pgapi import Database, cli
 
 
 def test_memory_basic():

@@ -1,5 +1,5 @@
 from click.testing import CliRunner
-from sqlite_utils import cli, recipes
+from pgapi import cli, recipes
 from pathlib import Path
 import pytest
 import re
