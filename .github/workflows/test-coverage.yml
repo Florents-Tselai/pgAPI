@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - pgapi
   pull_request:
     branches:
       - main
+      - pgapi
 jobs:
   test:
     runs-on: ubuntu-latest
