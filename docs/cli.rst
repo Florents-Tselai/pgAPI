@@ -1505,7 +1505,7 @@ This will update the dog with an ID of 2 to have an age of 4, creating a new rec
 The command will fail if you reference columns that do not exist on the table. To automatically create missing columns, use the ``--alter`` option.
 
 .. note::
-    ``upsert`` in sqlite-utils 1.x worked like ``insert ... --replace`` does in 2.x. See `issue #66 <https://github.com/simonw/sqlite-utils/issues/66>`__ for details of this change.
+    ``upsert`` in sqlite-utils 1.x worked like ``insert ... --replace`` does in 2.x. See `issue #66 <https://github.com/Florents-Tselai/pgAPI/issues/66>`__ for details of this change.
 
 
 .. _cli_bulk:

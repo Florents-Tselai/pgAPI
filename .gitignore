@@ -21,3 +21,4 @@ tests/*.dylib
 tests/*.so
 tests/*.dll
 coverage.xml
+.idea/

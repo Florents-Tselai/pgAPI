@@ -6,12 +6,12 @@
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/sqlite-utils.svg
    :target: https://pypi.org/project/sqlite-utils/
-.. |Changelog| image:: https://img.shields.io/github/v/release/simonw/sqlite-utils?include_prereleases&label=changelog
+.. |Changelog| image:: https://img.shields.io/github/v/release/Florents-Tselai/pgAPI?include_prereleases&label=changelog
    :target: https://sqlite-utils.datasette.io/en/stable/changelog.html
-.. |CI| image:: https://github.com/simonw/sqlite-utils/workflows/Test/badge.svg
-   :target: https://github.com/simonw/sqlite-utils/actions
+.. |CI| image:: https://github.com/Florents-Tselai/pgAPI/workflows/Test/badge.svg
+   :target: https://github.com/Florents-Tselai/pgAPI/actions
 .. |License| image:: https://img.shields.io/badge/license-Apache%202.0-blue.svg
-   :target: https://github.com/simonw/sqlite-utils/blob/main/LICENSE
+   :target: https://github.com/Florents-Tselai/pgAPI/blob/main/LICENSE
 .. |discord| image:: https://img.shields.io/discord/823971286308356157?label=discord
    :target: https://discord.gg/Ass7bCAMDw
 

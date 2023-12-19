@@ -43,7 +43,7 @@ pip install pgAPI
 ### Development
 
 ```bash
-pip install -e '.[test]'
+pip install -e '.[test,docs]'
 pytest
 ```
 

@@ -41,7 +41,7 @@ Adding foreign keys to a table no longer uses ``PRAGMA writable_schema = 1`` to 
 
 This new mechanism creates a full copy of the table, so it is likely to be significantly slower for large tables, but will no longer trigger ``table sqlite_master may not be modified`` errors on platforms that do not support ``PRAGMA writable_schema = 1``.
 
-A new plugin, `sqlite-utils-fast-fks <https://github.com/simonw/sqlite-utils-fast-fks>`__, is now available for developers who still want to use that faster but riskier implementation.
+A new plugin, `sqlite-utils-fast-fks <https://github.com/Florents-Tselai/pgAPI-fast-fks>`__, is now available for developers who still want to use that faster but riskier implementation.
 
 Other changes:
 
@@ -105,13 +105,13 @@ This release introduces a new :ref:`plugin system <plugins>`. Read more about th
 -----------------
 
 - Dropped support for Python 3.6. Tests now ensure compatibility with Python 3.11. (:issue:`517`)
-- Automatically locates the SpatiaLite extension on Apple Silicon. Thanks, Chris Amico. (`#536 <https://github.com/simonw/sqlite-utils/pull/536>`__)
+- Automatically locates the SpatiaLite extension on Apple Silicon. Thanks, Chris Amico. (`#536 <https://github.com/Florents-Tselai/pgAPI/pull/536>`__)
 - New ``--raw-lines`` option for the ``sqlite-utils query`` and ``sqlite-utils memory`` commands, which outputs just the raw value of the first column of every row. (:issue:`539`)
 - Fixed a bug where ``table.upsert_all()`` failed if the ``not_null=`` option was passed. (:issue:`538`)
 - Fixed a ``ResourceWarning`` when using ``sqlite-utils insert``. (:issue:`534`)
 - Now shows a more detailed error message when ``sqlite-utils insert`` is called with invalid JSON. (:issue:`532`)
 - ``table.convert(..., skip_false=False)`` and ``sqlite-utils convert --no-skip-false`` options, for avoiding a misfeature where the :ref:`convert()  <python_api_convert>` mechanism skips rows in the database with a falsey value for the specified column. Fixing this by default would be a backwards-incompatible change and is under consideration for a 4.0 release in the future. (:issue:`527`)
-- Tables can now be created with self-referential foreign keys. Thanks, Scott Perry. (`#537 <https://github.com/simonw/sqlite-utils/pull/537>`__)
+- Tables can now be created with self-referential foreign keys. Thanks, Scott Perry. (`#537 <https://github.com/Florents-Tselai/pgAPI/pull/537>`__)
 - ``sqlite-utils transform`` no longer breaks if a table defines default values for columns. Thanks, Kenny Song. (:issue:`509`)
 - Fixed a bug where repeated calls to ``table.transform()`` did not work correctly. Thanks, Martin Carpenter. (:issue:`525`)
 - Improved error message if ``rows_from_file()`` is passed a non-binary-mode file-like object. (:issue:`520`)
@@ -122,7 +122,7 @@ This release introduces a new :ref:`plugin system <plugins>`. Read more about th
 -----------------
 
 - Now tested against Python 3.11. (:issue:`502`)
-- New ``table.search_sql(include_rank=True)`` option, which adds a ``rank`` column to the generated SQL. Thanks, Jacob Chapman. (`#480 <https://github.com/simonw/sqlite-utils/pull/480>`__)
+- New ``table.search_sql(include_rank=True)`` option, which adds a ``rank`` column to the generated SQL. Thanks, Jacob Chapman. (`#480 <https://github.com/Florents-Tselai/pgAPI/pull/480>`__)
 - Progress bars now display for newline-delimited JSON files using the ``--nl`` option. Thanks, Mischa Untaga. (:issue:`485`)
 - New ``db.close()`` method. (:issue:`504`)
 - Conversion functions passed to :ref:`table.convert(...) <python_api_convert>` can now return lists or dictionaries, which will be inserted into the database as JSON strings. (:issue:`495`)
@@ -181,7 +181,7 @@ See also `the annotated release notes <https://simonwillison.net/2022/Jun/19/wee
 3.26.1 (2022-05-02)
 -------------------
 
-- Now depends on `click-default-group-wheel <https://github.com/simonw/click-default-group-wheel>`__, a pure Python wheel package. This means you can install and use this package with `Pyodide <https://pyodide.org/>`__, which can run Python entirely in your browser using WebAssembly. (`#429 <https://github.com/simonw/sqlite-utils/pull/429>`__)
+- Now depends on `click-default-group-wheel <https://github.com/simonw/click-default-group-wheel>`__, a pure Python wheel package. This means you can install and use this package with `Pyodide <https://pyodide.org/>`__, which can run Python entirely in your browser using WebAssembly. (`#429 <https://github.com/Florents-Tselai/pgAPI/pull/429>`__)
 
   Try that out using the `Pyodide REPL <https://pyodide.org/en/stable/console.html>`__:
 
@@ -241,7 +241,7 @@ See also `the annotated release notes <https://simonwillison.net/2022/Jun/19/wee
 3.23 (2022-02-03)
 -----------------
 
-This release introduces four new utility methods for working with `SpatiaLite <https://www.gaia-gis.it/fossil/libspatialite/index>`__. Thanks, Chris Amico. (`#385 <https://github.com/simonw/sqlite-utils/pull/385>`__)
+This release introduces four new utility methods for working with `SpatiaLite <https://www.gaia-gis.it/fossil/libspatialite/index>`__. Thanks, Chris Amico. (`#385 <https://github.com/Florents-Tselai/pgAPI/pull/385>`__)
 
 - ``sqlite_utils.utils.find_spatialite()`` :ref:`finds the location of the SpatiaLite module <python_api_gis_find_spatialite>` on disk.
 - ``db.init_spatialite()`` :ref:`initializes SpatiaLite <python_api_gis_init_spatialite>` for the given database.
@@ -323,7 +323,7 @@ More details and examples can be found in `the annotated release notes <https://
 - Now depends on ``python-dateutil`` instead of depending on ``dateutils``. Thanks, Denys Pavlov. (:issue:`324`)
 - ``table.create()`` (see :ref:`python_api_explicit_create`) now handles ``dict``, ``list`` and ``tuple`` types, mapping them to ``TEXT`` columns in SQLite so that they can be stored encoded as JSON. (:issue:`338`)
 - Inserted data with square braces in the column names (for example a CSV file containing a ``item[price]``) column now have the braces converted to underscores: ``item_price_``. Previously such columns would be rejected with an error. (:issue:`329`)
-- Now also tested against Python 3.10. (`#330 <https://github.com/simonw/sqlite-utils/pull/330>`__)
+- Now also tested against Python 3.10. (`#330 <https://github.com/Florents-Tselai/pgAPI/pull/330>`__)
 
 .. _v3_17.1:
 
@@ -615,7 +615,7 @@ This release introduces a new mechanism for speeding up ``count(*)`` queries usi
 
 - New command: ``sqlite-utils analyze-tables my.db`` outputs useful information about the table columns in the database, such as the number of distinct values and how many rows are null. See :ref:`cli_analyze_tables` for documentation. (:issue:`207`)
 - New ``table.analyze_column(column)`` Python method used by the ``analyze-tables`` command - see :ref:`python_api_analyze_column`.
-- The ``table.update()`` method now correctly handles values that should be stored as JSON. Thanks, Andreas Madsack. (`#204 <https://github.com/simonw/sqlite-utils/pull/204>`__)
+- The ``table.update()`` method now correctly handles values that should be stored as JSON. Thanks, Andreas Madsack. (`#204 <https://github.com/Florents-Tselai/pgAPI/pull/204>`__)
 
 .. _v3_0:
 
@@ -650,7 +650,7 @@ Changes since the 3.0a0 alpha release:
 2.23 (2020-10-28)
 -----------------
 
-- ``table.m2m(other_table, records)`` method now takes any iterable, not just a list or tuple. Thanks, Adam Wolf. (`#189 <https://github.com/simonw/sqlite-utils/pull/189>`__)
+- ``table.m2m(other_table, records)`` method now takes any iterable, not just a list or tuple. Thanks, Adam Wolf. (`#189 <https://github.com/Florents-Tselai/pgAPI/pull/189>`__)
 - ``sqlite-utils insert`` now displays a progress bar for CSV or TSV imports. (:issue:`173`)
 - New ``@db.register_function(deterministic=True)`` option for registering deterministic SQLite functions in Python 3.8 or higher. (:issue:`191`)
 
@@ -810,8 +810,8 @@ The theme of this release is better tools for working with binary data. The new 
 2.11 (2020-07-08)
 -----------------
 
-- New ``--truncate`` option to ``sqlite-utils insert``, and ``truncate=True`` argument to ``.insert_all()``. Thanks, Thomas Sibley. (`#118 <https://github.com/simonw/sqlite-utils/pull/118>`__)
-- The ``sqlite-utils query`` command now runs updates in a transaction. Thanks, Thomas Sibley. (`#120 <https://github.com/simonw/sqlite-utils/pull/120>`__)
+- New ``--truncate`` option to ``sqlite-utils insert``, and ``truncate=True`` argument to ``.insert_all()``. Thanks, Thomas Sibley. (`#118 <https://github.com/Florents-Tselai/pgAPI/pull/118>`__)
+- The ``sqlite-utils query`` command now runs updates in a transaction. Thanks, Thomas Sibley. (`#120 <https://github.com/Florents-Tselai/pgAPI/pull/120>`__)
 
 .. _v2_10_1:
 
@@ -964,7 +964,7 @@ This replaces the undocumented ``table.detect_column_types()`` method.
 2.1 (2020-01-30)
 ----------------
 
-New feature: ``conversions={...}`` can be passed to the ``.insert()`` family of functions to specify SQL conversions that should be applied to values that are being inserted or updated. See :ref:`python_api_conversions` . (`#77 <https://github.com/simonw/sqlite-utils/issues/73>`__).
+New feature: ``conversions={...}`` can be passed to the ``.insert()`` family of functions to specify SQL conversions that should be applied to values that are being inserted or updated. See :ref:`python_api_conversions` . (`#77 <https://github.com/Florents-Tselai/pgAPI/issues/73>`__).
 
 .. _v2_0_1:
 
@@ -986,7 +986,7 @@ See :ref:`Upserting data using the Python API <python_api_upsert>` and :ref:`Ups
 
 If you want the old behaviour - where records were completely replaced - you can use ``$ sqlite-utils insert ... --replace`` on the command-line and ``.insert(..., replace=True)`` and ``.insert_all(..., replace=True)`` in the Python API. See :ref:`Insert-replacing data using the Python API <python_api_insert_replace>` and :ref:`Insert-replacing data using the CLI <cli_insert_replace>` for more.
 
-For full background on this change, see `issue #66 <https://github.com/simonw/sqlite-utils/issues/66>`__.
+For full background on this change, see `issue #66 <https://github.com/Florents-Tselai/pgAPI/issues/66>`__.
 
 .. _v1_12_1:
 
@@ -1010,7 +1010,7 @@ Python library utilities for deleting records (:issue:`62`)
 1.11 (2019-09-02)
 -----------------
 
-Option to create triggers to automatically keep FTS tables up-to-date with newly inserted, updated and deleted records. Thanks, Amjith Ramanujam! (`#57 <https://github.com/simonw/sqlite-utils/pull/57>`__)
+Option to create triggers to automatically keep FTS tables up-to-date with newly inserted, updated and deleted records. Thanks, Amjith Ramanujam! (`#57 <https://github.com/Florents-Tselai/pgAPI/pull/57>`__)
 
 - ``sqlite-utils enable-fts ... --create-triggers`` - see :ref:`Configuring full-text search using the CLI <cli_fts>`
 - ``db["tablename"].enable_fts(..., create_triggers=True)`` - see :ref:`Configuring full-text search using the Python library <python_api_fts>`
@@ -1088,7 +1088,7 @@ Support for lookup tables.
 1.4.1 (2019-07-14)
 ------------------
 
-- Assorted minor documentation fixes: `changes since 1.4 <https://github.com/simonw/sqlite-utils/compare/1.4...1.4.1>`__
+- Assorted minor documentation fixes: `changes since 1.4 <https://github.com/Florents-Tselai/pgAPI/compare/1.4...1.4.1>`__
 
 .. _v1_4:
 

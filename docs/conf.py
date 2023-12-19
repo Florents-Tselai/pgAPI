@@ -32,6 +32,7 @@ from beanbag_docutils.sphinx.ext.github import github_linkcode_resolve
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "myst_parser",
     "sphinx.ext.extlinks",
     "sphinx.ext.autodoc",
     "sphinx_copybutton",
@@ -41,7 +42,7 @@ autodoc_member_order = "bysource"
 autodoc_typehints = "description"
 
 extlinks = {
-    "issue": ("https://github.com/simonw/sqlite-utils/issues/%s", "#%s"),
+    "issue": ("https://github.com/Florents-Tselai/pgAPI/issues/%s", "#%s"),
 }
 
 
@@ -49,9 +50,9 @@ def linkcode_resolve(domain, info):
     return github_linkcode_resolve(
         domain=domain,
         info=info,
-        allowed_module_names=["sqlite_utils"],
-        github_org_id="simonw",
-        github_repo_id="sqlite-utils",
+        allowed_module_names=["pgapi"],
+        github_org_id="Florents-Tselai",
+        github_repo_id="pgAPI",
         branch="main",
     )
 
@@ -63,15 +64,15 @@ templates_path = ["_templates"]
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = '.md'
 
 # The master toctree document.
 master_doc = "index"
 
 # General information about the project.
-project = "sqlite-utils"
-copyright = "2018-2022, Simon Willison"
-author = "Simon Willison"
+project = "pgAPI"
+copyright = "2023, Florents Tselai"
+author = "Florents Tselai"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -116,7 +117,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = "furo"
-html_title = "sqlite-utils"
+html_title = "pgAPI"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -134,7 +135,7 @@ html_js_files = ["js/custom.js"]
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "sqlite-utils-doc"
+htmlhelp_basename = "pgapi-doc"
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -160,9 +161,9 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "sqlite-utils.tex",
-        "sqlite-utils documentation",
-        "Simon Willison",
+        "pgapi.tex",
+        "pgapi documentation",
+        "Florents Tselai",
         "manual",
     )
 ]
@@ -172,7 +173,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "sqlite-utils", "sqlite-utils documentation", [author], 1)]
+man_pages = [(master_doc, "pgapi", "pgapi documentation", [author], 1)]
 
 
 # -- Options for Texinfo output -------------------------------------------
@@ -183,11 +184,11 @@ man_pages = [(master_doc, "sqlite-utils", "sqlite-utils documentation", [author]
 texinfo_documents = [
     (
         master_doc,
-        "sqlite-utils",
-        "sqlite-utils documentation",
+        "pgapi",
+        "pgapi documentation",
         author,
-        "sqlite-utils",
-        "Python library for manipulating SQLite databases",
+        "pgapi",
+        "Python library for manipulating Postgres databases",
         "Miscellaneous",
     )
 ]
