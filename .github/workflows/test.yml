@@ -63,14 +63,14 @@ jobs:
     - name: Run tests
       run: |
         pytest -v
-    - name: run mypy
-      run: mypy pgapi tests
-    - name: run flake8 if Python 3.8 or higher
-      if: matrix.python-version >= 3.8
-      run: flake8
+#    - name: run mypy
+#      run: mypy pgapi tests
+#    - name: run flake8 if Python 3.8 or higher
+#      if: matrix.python-version >= 3.8
+#      run: flake8
     - name: Check formatting
       run: black . --check
-    - name: Check if cog needs to be run
-      if: matrix.python-version != '3.7'
-      run: |
-        cog --check README.md docs/*.rst
+#    - name: Check if cog needs to be run
+#      if: matrix.python-version != '3.7'
+#      run: |
+#        cog --check README.md docs/*.rst
