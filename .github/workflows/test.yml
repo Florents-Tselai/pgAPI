@@ -64,7 +64,7 @@ jobs:
       run: |
         pytest -v
     - name: run mypy
-      run: mypy sqlite_utils tests
+      run: mypy pgapi tests
     - name: run flake8 if Python 3.8 or higher
       if: matrix.python-version >= 3.8
       run: flake8
