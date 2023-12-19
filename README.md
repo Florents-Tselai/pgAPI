@@ -19,10 +19,10 @@
 
 <p align="center">
 <a href="https://pypi.org/project/pgapi/"><img src="https://img.shields.io/pypi/v/pgapi?label=PyPI"></a>
-<a href="https://github.com/Florents-Tselai/sqlite-utils/actions/workflows/test.yml?branch=pgapi"><img src="https://github.com/Florents-Tselai/sqlite-utils/actions/workflows/test.yml/badge.svg"></a>
-<a href="https://codecov.io/gh/Florents-Tselai/sqlite-utils"><img src="https://codecov.io/gh/Florents-Tselai/sqlite-utils/branch/pgapi/graph/badge.svg"></a>  
+<a href="https://github.com/Florents-Tselai/pgAPI/actions/workflows/test.yml?branch=pgapi"><img src="https://github.com/Florents-Tselai/pgAPI/actions/workflows/test.yml/badge.svg"></a>
+<a href="https://codecov.io/gh/Florents-Tselai/pgAPI"><img src="https://codecov.io/gh/Florents-Tselai/pgAPI/branch/pgapi/graph/badge.svg"></a>  
 <a href="https://opensource.org/licenses/Apache Software License 2.0"><img src="https://img.shields.io/badge/Apache Software License 2.0.0-blue.svg"></a>
-<a href="https://github.com/Florents-Tselai/sqlite-utils/releases"><img src="https://img.shields.io/github/v/release/Florents-Tselai/sqlite-utils?include_prereleases&label=changelog"></a>
+<a href="https://github.com/Florents-Tselai/pgAPI/releases"><img src="https://img.shields.io/github/v/release/Florents-Tselai/pgAPI?include_prereleases&label=changelog"></a>
 
 ## Inspiration
 
