@@ -4,15 +4,26 @@ on:
   push:
     branches:
       - main
+      - pgapi
   pull_request:
     branches:
       - main
+      - pgapi
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
       uses: actions/checkout@v2
+
+    - uses: ankane/setup-postgres@v1
+      with:
+        postgres-version: 15
+        database: testpgapi
+        dev-files: true
+        config: |
+          shared_preload_libraries = 'pg_stat_statements'
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:

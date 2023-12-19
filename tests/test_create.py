@@ -76,6 +76,7 @@ def test_create_table_compound_primary_key(fresh_db):
     ) == table.schema
     assert ["id1", "id2"] == table.pks
 
+
 #
 # def test_create_table_with_single_primary_key(fresh_db):
 #     fresh_db["foo"].insert({"id": 1})
